@@ -11,14 +11,16 @@ import UIKit
 class ViewController: UIViewController {
 
     // Constant deffinitions
-    fileprivate let radius:      CGFloat       = 37.5
     fileprivate var loaderView:  LoaderView    = LoaderView()    //*! View that holds the splash animation
     fileprivate var dashView:    DashboardView = DashboardView() //*! View that holds the dashboard buttons
     fileprivate var statusLight: Bool          = true            //*! Tells view controller whether to draw status bar
-
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // Hide navigation bar for splash
+        self.hideNavigationBar()
         
         // Play splash animation
         let centerRect: CGRect = getCenteredFrame(frameImage: #imageLiteral(resourceName: "Single Logo.png"), view: view)
@@ -35,15 +37,20 @@ class ViewController: UIViewController {
             // Repaint status bar for dash
             self.statusLight = false
             self.setNeedsStatusBarAppearanceUpdate()
+            
+            // Show navigation bar
+            self.showNavigationBar()
         }
+        
+        
     }
     
     // Will hide status bar while splash plays
     override var prefersStatusBarHidden: Bool {
         return statusLight
     }
-
 }
+
 
 extension ViewController {
     /*!
@@ -65,5 +72,16 @@ extension ViewController {
         
         // Return value
         return retRect
+    }
+    
+    func hideNavigationBar(){
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+    }
+    
+    func showNavigationBar() {
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }

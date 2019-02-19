@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import JTAppleCalendar
+import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate  {
+    
 
     var window: UIWindow?
-
+    let store = DataStore.sharedInstance
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        
+        // Load data into data store
+        store.getData()
+        
         return true
     }
 
